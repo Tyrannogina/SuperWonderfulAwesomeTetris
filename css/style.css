@@ -53,11 +53,17 @@ Author: tyrannogina */
 }
 html {
   font-size: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 body {
   font-family: 'Raleway', sans-serif;
   font-size: 1.6rem;
+  width: 100%;
+  height: 100%;
+  background-attachment: fixed;
+  background-color: black;
 }
 
 h1 {
@@ -80,7 +86,6 @@ h5 {
 .main-container {
   background-color: black;
   max-width: 100%;
-  height: 100vh;
   padding: 1px; /* Padding to avoid border collapse of game-area*/
 }
 
@@ -129,4 +134,23 @@ h5 {
 
 .instructions ul {
   padding: 1rem;
+}
+
+.author {
+  position:fixed;
+  right: 0;
+  bottom: 0;
+  display: inline-block;
+  margin: 1rem; /* adjust as needed */
+}
+.author img {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  vertical-align: top;
+  margin: auto;
+}
+.author figcaption {
+  text-align: center;
+  color: white;
 }
