@@ -1,34 +1,38 @@
 var availableTetrominos = [
   function () {
+    Tetromino.call(this);
     this.name = 'I';
     this.body = [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
+      [false, false, false, false],
+      [false, false, false, false],
       ['I', 'I', 'I', 'I'],
-      [0, 0, 0, 0]
+      [false, false, false, false]
     ];
+    this.cssClass = 'tetroI';
   },
   function () {
+    Tetromino.call(this);
     this.name = 'B';
-    this.initialOffset = {
-      x: 4,
-      y: -1
+    this.offset = {
+      y: /*-2*/15,
+      x: 4
     };
     this.body = [
       ['B', 'B'],
       ['B', 'B']
     ];
+    this.cssClass = 'tetroB';
   }
 ];
 
 function Tetromino () {
-  this.name = undefined;
-  this.initialOffset = {
-    x: 3,
-    y: -2
+  this.fix        = false;
+  this.firstMove  = true;
+  this.gameLost   = false;
+  this.offset = {
+    y: /*-3*/15,
+    x: 3
   };
-  this.body = undefined;
-  this.position = undefined;
 }
 
 Tetromino.prototype.allowMoveRigth = function () {
@@ -37,70 +41,115 @@ Tetromino.prototype.allowMoveRigth = function () {
 Tetromino.prototype.allowMoveLeft = function() {};
 
 Tetromino.prototype.allowMoveDown = function() {
-  if (this.position === undefined) {
-
+  var newOffset = this.offset;
+  newOffset.y++;
+  if (this.collides(newOffset)) {
+    if (this.firstMove && newOffset.y < 0) {
+      this.gameLost = true;
+    } else {
+      this.fix = true;
+      this.firstMove = false;
+      return false;
+    }
   }
+  return newOffset;
 };
 
 Tetromino.prototype.moveTetromino = function (direction) {
-  var newCoordinates;
+  var newOffset;
   switch (direction) {
     case 'right':
-      newCoordinates = this.allowMoveRigth();
+      newOffset = this.allowMoveRigth();
       break;
     case 'left':
-      newCoordinates = this.allowMoveLeft();
+      newOffset = this.allowMoveLeft();
       break;
     case 'down':
-      newCoordinates = this.allowMoveDown();
+      newOffset = this.allowMoveDown();
       break;
   }
-  if (newCoordinates !== false) {
-
+  console.log(newOffset);
+  if (newOffset !== false) {
+    this.offset = newOffset;
   }
 };
-Tetromino.prototype.rotateTetrominoClockwise = function (tetromino) {
-  var length = tetromino.length;
-  var result = [];
+
+Tetromino.prototype.allowRotation = function (direction) {
+  var rotatedTetromino;
+  switch (direction) {
+    case 'clockwise':
+      rotatedTetromino = rotateTetrominoClockwise();
+      break;
+    case 'counterclockwise':
+      rotatedTetromino = rotateTetrominoCounterclockwise();
+      break;
+  }
+  if (this.collides(undefined, rotatedTetromino)) {
+    return false;
+  }
+  this.body = rotatedTetromino;
+};
+
+Tetromino.prototype.rotateTetrominoClockwise = function () {
+  var length = this.body.length;
+  var rotatedTetromino = [];
   for (var i = 0; i < length; i++) {
-    result.push([]);
+    rotatedTetromino.push([]);
   }
   for (var row = 0; row < length; row++) {
       for (var col = 0; col < length; col++) {
-        result[row][col] = tetromino[length - col - 1][row];
+        rotatedTetromino[row][col] = this.body[length - col - 1][row];
       }
   }
-  return result;
+  return rotatedTetromino;
 };
 
-Tetromino.prototype.rotateTetrominoCounterclockwise = function (tetromino) {
-  var length = tetromino.length;
-  var result = [];
+Tetromino.prototype.rotateTetrominoCounterclockwise = function () {
+  var length = this.body.length;
+  var rotatedTetromino = [];
   for (var i = 0; i < length; i++) {
-    result.push([]);
+    rotatedTetromino.push([]);
   }
   for (var row = 0; row < length; row++) {
     for (var col = 0; col < length; col++) {
-      result[row][col] = tetromino[col][length - row - 1];
+      rotatedTetromino[row][col] = this.body[col][length - row - 1];
     }
   }
-  return result;
+  return rotatedTetromino;
 };
-Tetromino.prototype.collides = function () {
-  //TODO if rotated piece does not collide
-  /*It will have to execute inside moveDown, so if on moveDown collides, then
-  it calls fixToBottom. Also called from moveLeft or right and impedes
-  movement if collide.*/
-};
-Tetromino.prototype.allowRotation = function () {
-  //TODO if rotated piece does not collide, set rotated piece as actualTetromino
+Tetromino.prototype.collides = function (offset, body) {
+  if (body === undefined) {
+    body = this.body;
+  }
+  if (offset === undefined) {
+    offset = this.offset;
+  }
+  var length = body.length;
+  for (var tRow = offset.y < 0 ? Math.abs(offset.y) : 0; tRow < length; tRow++) {
+    for (var tCol = 0; tCol < length; tCol++) {
+      if (body[tRow][tCol] !== false) {
+        if (offset.y + tRow > this.board.length - 1 ||
+          offset.x + tCol > this.board[offset.y + tRow] - 1 ||
+          offset.x + tCol < 0 ||
+          this.board[offset.y + tRow][offset.x + tCol] !== false) {
+          return true;
+        }
+      }
+    }
+  }
+/*  body.forEach(function(tRow, tRowIndex) {
+    if (tRowIndex >= 0 && tRow.some(function(element) {return })) {
+      row.forEach(function (tCol, tColIndex) {
+
+      });
+    }
+  });*/
+  return false;
 };
 
-Tetromino.prototype.allowMove = function () {
-  //TODO if moved piece does not collide, change actualTetromino position.
-};
+
 
 /* Set inheritance of all tetromino types of common tetromino function */
-availableTetrominos.forEach(function(func) {
-  func.prototype = Object.create(Tetromino.prototype);
+availableTetrominos.forEach(function(tetrConstr) {
+  tetrConstr.prototype = Object.create(Tetromino.prototype);
 });

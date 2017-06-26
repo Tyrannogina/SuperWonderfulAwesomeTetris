@@ -163,3 +163,7 @@ h5 {
   text-align: center;
   color: white;
 }
+
+.tetroB, .tetroI {
+  background-color: lightblue;
+}
