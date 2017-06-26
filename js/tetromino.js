@@ -1,10 +1,6 @@
 var availableTetrominos = [
   function () {
     this.name = 'I';
-    this.initialOffset = {
-      x: 0,
-      y: 0
-    };
     this.body = [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
@@ -15,8 +11,8 @@ var availableTetrominos = [
   function () {
     this.name = 'B';
     this.initialOffset = {
-      x: 0,
-      y: 0
+      x: 4,
+      y: -1
     };
     this.body = [
       ['B', 'B'],
@@ -27,15 +23,25 @@ var availableTetrominos = [
 
 function Tetromino () {
   this.name = undefined;
-  this.initialOffset = undefined;
+  this.initialOffset = {
+    x: 3,
+    y: -2
+  };
   this.body = undefined;
+  this.position = undefined;
 }
 
 Tetromino.prototype.allowMoveRigth = function () {
   //TODO if moved piece does not collide, change actualTetromino position.
 };
 Tetromino.prototype.allowMoveLeft = function() {};
-Tetromino.prototype.allowMoveDown = function() {};
+
+Tetromino.prototype.allowMoveDown = function() {
+  if (this.position === undefined) {
+
+  }
+};
+
 Tetromino.prototype.moveTetromino = function (direction) {
   var newCoordinates;
   switch (direction) {

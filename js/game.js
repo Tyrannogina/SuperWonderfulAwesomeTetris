@@ -3,8 +3,8 @@ function Game(rows, columns) {
   this.columns = columns;
   this.generateBoard();
   this.intervalID = undefined;
-
 }
+
 Game.prototype.generateBoard = function () {
   $('.game-area').css({"min-width": (this.columns * 8) + 'rem'});
   $('.panel').css({"min-width": (this.columns * 2.5) + 'rem'});
@@ -21,16 +21,13 @@ Game.prototype.generateBoard = function () {
 
 Game.prototype.start = function () {
   this.actualTetromino = undefined;
-  this.generateRandomTetromino();
+  this.generateRandomTetromino(); //Sets actualTetromino
   this.intervalID = setInterval(this.actualTetromino.moveTetromino('down'), 100);
-  //TODO on click for start-button. Sets interval and executes moveDown and
-  //collides in an interval. Returns the interval ID .    (100)
-
 };
 
 Game.prototype.generateRandomTetromino = function () {
-  var setTetromino = availableTetrominos[Math.floor(Math.random() * availableTetrominos.length)];
-  this.actualTetromino = new setTetromino();
+  var tetrominoConstructor = availableTetrominos[Math.floor(Math.random() * availableTetrominos.length)];
+  this.actualTetromino = new tetrominoConstructor();
 };
 
 Game.prototype.thereAreFullLines = function () {
