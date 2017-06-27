@@ -87,6 +87,7 @@ Game.prototype.start = function () {
     if (this.actualTetromino.gameLost) {
       this._gameOver();
     }
+    this._deleteLines();
   }.bind(this), 1000);
 };
 
@@ -97,14 +98,30 @@ Game.prototype._generateRandomTetromino = function () {
   this.actualTetromino.board = this.board;
 };
 
-Game.prototype.thereAreFullLines = function () {
-  //TODO returns lines that are full (aka don't have any false value) else returns false
+Game.prototype._thereAreFullLines = function () {
+  var fullLines = this.board.reduce(function (fullLinesAcc, line, lineIndex) {
+    var lineNotFull = line.some(function(element) {return element === false;});
+    if (!lineNotFull) {
+      fullLinesAcc.push(lineIndex);
+    }
+    return fullLinesAcc;
+  }, []);
+  if (fullLines.length > 0) {
+    return fullLines;
+  }
+  return false;
 };
 
-Game.prototype.deleteLine = function () {
-  var linesToDelete = this.thereAreFullLines();
+Game.prototype._deleteLines = function () {
+  var linesToDelete = this._thereAreFullLines();
   if (linesToDelete !== false) {
-    //TODO delete the line and keep the board height correctly
+    linesToDelete.forEach(function (lineIndex) {
+      this.board.splice(lineIndex, 1);
+      this.board.unshift([]);
+      for (var j = 0; j < this.columns; j++) {
+        this.board[0].push(false);
+      }
+    }.bind(this));
   }
 };
 
