@@ -23,6 +23,11 @@ Game.prototype._assignControlsToKeys = function() {
       case 39: // arrow right
         this.actualTetromino.moveTetromino("right");
         break;
+      case 67: // c key
+        if (this.actualTetromino.name !== 'B') {
+          this.actualTetromino.rotateTetromino("counterclockwise");
+        }
+        break;
       case 80: // p pause
         /*if (this.intervalId) {
           this.stop();
