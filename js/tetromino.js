@@ -93,10 +93,10 @@ Tetromino.prototype.rotateTetromino = function (direction) {
   var rotatedTetromino;
   switch (direction) {
     case 'clockwise':
-      rotatedTetromino = rotateTetrominoClockwise();
+      rotatedTetromino = this.rotateTetrominoClockwise();
       break;
     case 'counterclockwise':
-      rotatedTetromino = rotateTetrominoCounterclockwise();
+      rotatedTetromino = this.rotateTetrominoCounterclockwise();
       break;
   }
   if (this.collides(undefined, rotatedTetromino)) {
@@ -150,11 +150,10 @@ Tetromino.prototype.collides = function (myOffset, body) {
     } else if (lineNotEmpty) { //We check the columns on that row
       for (var tCol = 0; tCol < length; tCol++) {
         var needToCheckTetrominoPosition = body[tRow][tCol] !== false;
-      //  var to
         var insideBoardLeftAndRight = (myOffset.x + tCol) < this.board[(myOffset.y + tRow)].length &&
          (myOffset.x + tCol) >= 0;
         var boardPositionNotEmpty = this.board[(myOffset.y + tRow)][(myOffset.x + tCol)] !== false;
-        if (needToCheckTetrominoPosition && !insideBoardLeftAndRight && boardPositionNotEmpty) {
+        if ((needToCheckTetrominoPosition && !insideBoardLeftAndRight) || (needToCheckTetrominoPosition && boardPositionNotEmpty)) {
           return true;
         }
       }

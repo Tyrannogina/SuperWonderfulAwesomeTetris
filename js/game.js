@@ -10,7 +10,9 @@ Game.prototype._assignControlsToKeys = function() {
   $('body').on('keydown', function(e) {
     switch (e.keyCode) {
       case 38: // arrow up
-        this.actualTetromino.rotateTetromino("clockwise");
+        if (this.actualTetromino.name !== 'B') {
+          this.actualTetromino.rotateTetromino("clockwise");
+        }
         break;
       case 40: // arrow down
         this.actualTetromino.moveTetromino("down");
