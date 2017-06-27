@@ -35,9 +35,25 @@ function Tetromino () {
 }
 
 Tetromino.prototype.allowMoveRight = function () {
-  //TODO if moved piece does not collide, change actualTetromino position.
+  var newOffset = {
+    y: this.offset.y,
+    x: this.offset.x + 1
+  };
+  if (this.collides(newOffset)) {
+    return false;
+  }
+  return newOffset;
 };
-Tetromino.prototype.allowMoveLeft = function() {};
+Tetromino.prototype.allowMoveLeft = function() {
+  var newOffset = {
+    y: this.offset.y,
+    x: this.offset.x - 1
+  };
+  if (this.collides(newOffset)) {
+    return false;
+  }
+  return newOffset;
+};
 
 Tetromino.prototype.allowMoveDown = function() {
   var newOffset = {
@@ -73,7 +89,7 @@ Tetromino.prototype.moveTetromino = function (direction) {
   }
 };
 
-Tetromino.prototype.allowRotation = function (direction) {
+Tetromino.prototype.rotateTetromino = function (direction) {
   var rotatedTetromino;
   switch (direction) {
     case 'clockwise':
@@ -134,10 +150,11 @@ Tetromino.prototype.collides = function (myOffset, body) {
     } else if (lineNotEmpty) { //We check the columns on that row
       for (var tCol = 0; tCol < length; tCol++) {
         var needToCheckTetrominoPosition = body[tRow][tCol] !== false;
+      //  var to
         var insideBoardLeftAndRight = (myOffset.x + tCol) < this.board[(myOffset.y + tRow)].length &&
          (myOffset.x + tCol) >= 0;
         var boardPositionNotEmpty = this.board[(myOffset.y + tRow)][(myOffset.x + tCol)] !== false;
-        if (needToCheckTetrominoPosition && insideBoardLeftAndRight && boardPositionNotEmpty) {
+        if (needToCheckTetrominoPosition && !insideBoardLeftAndRight && boardPositionNotEmpty) {
           return true;
         }
       }

@@ -2,8 +2,35 @@ function Game(rows, columns) {
   this.rows = rows;
   this.columns = columns;
   this.board = this._generateBoard();
+  this._assignControlsToKeys();
   this.intervalID = undefined;
 }
+
+Game.prototype._assignControlsToKeys = function() {
+  $('body').on('keydown', function(e) {
+    switch (e.keyCode) {
+      case 38: // arrow up
+        this.actualTetromino.rotateTetromino("clockwise");
+        break;
+      case 40: // arrow down
+        this.actualTetromino.moveTetromino("down");
+        break;
+      case 37: // arrow left
+        this.actualTetromino.moveTetromino("left");
+        break;
+      case 39: // arrow right
+        this.actualTetromino.moveTetromino("right");
+        break;
+      case 80: // p pause
+        /*if (this.intervalId) {
+          this.stop();
+        } else {
+          this.start();
+        }*/
+        break;
+    }
+  }.bind(this));
+};
 
 Game.prototype._generateBoard = function () {
   var board = [];
