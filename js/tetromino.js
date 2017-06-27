@@ -1,3 +1,7 @@
+var tetrominoCssClasses = {
+  I: 'tetroI',
+  B: 'tetroB'
+};
 var availableTetrominos = [
   function () {
     Tetromino.call(this);
@@ -8,7 +12,6 @@ var availableTetrominos = [
       ['I', 'I', 'I', 'I'],
       [false, false, false, false]
     ];
-    this.cssClass = 'tetroI';
   },
   function () {
     Tetromino.call(this);
@@ -21,7 +24,6 @@ var availableTetrominos = [
       ['B', 'B'],
       ['B', 'B']
     ];
-    this.cssClass = 'tetroB';
   }
 ];
 
