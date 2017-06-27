@@ -14,7 +14,7 @@ var availableTetrominos = [
     Tetromino.call(this);
     this.name = 'B';
     this.offset = {
-      y: /*-2*/15,
+      y: -2,
       x: 4
     };
     this.body = [
@@ -29,7 +29,7 @@ function Tetromino () {
   this.fix        = false;
   this.gameLost   = false;
   this.offset = {
-    y: /*-3*/15,
+    y: -3,
     x: 3
   };
 }

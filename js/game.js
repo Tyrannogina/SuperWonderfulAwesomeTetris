@@ -26,9 +26,6 @@ Game.prototype.drawBoard = function () {
       $('#game-board').append(
         $('<div>').addClass('cell').attr('data-row', rowIndex).attr('data-col', colIndex)
       );
-      if( rowIndex % 5 === 0) {
-        $('[data-row=' +  rowIndex + ']').css({'background-color': 'blue'});
-      }
     });
   });
 };
