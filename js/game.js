@@ -87,11 +87,13 @@ Game.prototype._gameOver = function () {
 Game.prototype._fixToBottom = function () {
   var rowStart = this.actualTetromino.offset.y < 0 ? Math.abs(this.actualTetromino.offset.y) : 0;
   var length = this.actualTetromino.body.length;
-  clearInterval(this.intervalID);
   for (var tRow = rowStart; tRow < length; tRow++) {
-    for (var tCol = 0; tCol < length; tCol++) {
-      if (this.actualTetromino.body[tRow][tCol] !== false) {
-        this.board[this.actualTetromino.offset.y + tRow][this.actualTetromino.offset.x + tCol] = this.actualTetromino.name;
+    var lineNotEmpty = this.actualTetromino.body[tRow].some(function(element) {return element !== false;});
+    if (lineNotEmpty) {
+      for (var tCol = 0; tCol < length; tCol++) {
+        if (this.actualTetromino.body[tRow][tCol] !== false) {
+          this.board[(this.actualTetromino.offset.y + tRow)][this.actualTetromino.offset.x + tCol] = this.actualTetromino.name;
+        }
       }
     }
   }
