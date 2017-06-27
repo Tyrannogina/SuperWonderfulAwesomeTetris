@@ -164,6 +164,9 @@ h5 {
   color: white;
 }
 
-.tetroB, .tetroI {
+.tetroB {
   background-color: lightblue;
+}
+.tetroI {
+  background-color: lightpink;
 }
