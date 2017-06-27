@@ -27,7 +27,6 @@ var availableTetrominos = [
 
 function Tetromino () {
   this.fix        = false;
-  this.firstMove  = true;
   this.gameLost   = false;
   this.offset = {
     y: /*-3*/15,
@@ -35,7 +34,7 @@ function Tetromino () {
   };
 }
 
-Tetromino.prototype.allowMoveRigth = function () {
+Tetromino.prototype.allowMoveRight = function () {
   //TODO if moved piece does not collide, change actualTetromino position.
 };
 Tetromino.prototype.allowMoveLeft = function() {};
@@ -44,14 +43,15 @@ Tetromino.prototype.allowMoveDown = function() {
   var newOffset = this.offset;
   newOffset.y++;
   if (this.collides(newOffset)) {
-    if (this.firstMove && newOffset.y < 0) {
+    if (newOffset.y < 0) {
       this.gameLost = true;
     } else {
       this.fix = true;
-      this.firstMove = false;
-      return false;
     }
+    console.log('moveDown not allowed');
+    return false;
   }
+  console.log('moveDown allowed');
   return newOffset;
 };
 
@@ -59,7 +59,7 @@ Tetromino.prototype.moveTetromino = function (direction) {
   var newOffset;
   switch (direction) {
     case 'right':
-      newOffset = this.allowMoveRigth();
+      newOffset = this.allowMoveRight();
       break;
     case 'left':
       newOffset = this.allowMoveLeft();
@@ -117,6 +117,7 @@ Tetromino.prototype.rotateTetrominoCounterclockwise = function () {
   }
   return rotatedTetromino;
 };
+
 Tetromino.prototype.collides = function (offset, body) {
   if (body === undefined) {
     body = this.body;
@@ -125,29 +126,26 @@ Tetromino.prototype.collides = function (offset, body) {
     offset = this.offset;
   }
   var length = body.length;
+  //For each row of the tetromino not going over the upper edge of the board
   for (var tRow = offset.y < 0 ? Math.abs(offset.y) : 0; tRow < length; tRow++) {
-    for (var tCol = 0; tCol < length; tCol++) {
-      if (body[tRow][tCol] !== false) {
-        if (offset.y + tRow > this.board.length - 1 ||
-          offset.x + tCol > this.board[offset.y + tRow] - 1 ||
-          offset.x + tCol < 0 ||
-          this.board[offset.y + tRow][offset.x + tCol] !== false) {
+    var lineNotEmpty = body[tRow].some(function(element) {return element !== false;});
+    var surpasedBoardLengthDown = (offset.y + tRow) >= this.board.length;
+    if (lineNotEmpty && surpasedBoardLengthDown) {
+        return true;
+    } else if (lineNotEmpty) { //We check the columns on that row
+      for (var tCol = 0; tCol < body[tRow].length; tCol++) {
+        var needToCheckTetrominoPosition = body[tRow][tCol] !== false;
+        var insideBoardLeftAndRight = (offset.x + tCol) < this.board[(offset.y + tRow)].length &&
+         (offset.x + tCol) >= 0;
+        var boardPositionNotEmpty = this.board[(offset.y + tRow)][(offset.x + tCol)] !== false;
+        if (needToCheckTetrominoPosition && insideBoardLeftAndRight && boardPositionNotEmpty) {
           return true;
         }
       }
     }
   }
-/*  body.forEach(function(tRow, tRowIndex) {
-    if (tRowIndex >= 0 && tRow.some(function(element) {return })) {
-      row.forEach(function (tCol, tColIndex) {
-
-      });
-    }
-  });*/
   return false;
 };
-
-
 
 /* Set inheritance of all tetromino types of common tetromino function */
 availableTetrominos.forEach(function(tetrConstr) {
