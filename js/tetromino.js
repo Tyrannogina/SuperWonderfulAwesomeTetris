@@ -1,7 +1,3 @@
-var tetrominoCssClasses = {
-  I: 'tetroI',
-  B: 'tetroB'
-};
 var availableTetrominos = [
   function () {
     Tetromino.call(this);
@@ -23,6 +19,51 @@ var availableTetrominos = [
     this.body = [
       ['B', 'B'],
       ['B', 'B']
+    ];
+  },
+  function () {
+    Tetromino.call(this);
+    this.name = 'S';
+    this.body = [
+      [false, 'S', 'S'],
+      ['S', 'S', false],
+      [false, false, false]
+    ];
+  },
+  function () {
+    Tetromino.call(this);
+    this.name = 'Z';
+    this.body = [
+      ['Z', 'Z', false],
+      [false, 'Z', 'Z'],
+      [false, false, false]
+    ];
+  },
+  function () {
+    Tetromino.call(this);
+    this.name = 'L';
+    this.body = [
+      [false, false, 'L'],
+      ['L', 'L', 'L'],
+      [false, false, false]
+    ];
+  },
+  function () {
+    Tetromino.call(this);
+    this.name = 'J';
+    this.body = [
+      ['J', false, false],
+      ['J', 'J', 'J'],
+      [false, false, false]
+    ];
+  },
+  function () {
+    Tetromino.call(this);
+    this.name = 'T';
+    this.body = [
+      [false, 'T', false],
+      ['T', 'T', 'T'],
+      [false, false, false]
     ];
   }
 ];

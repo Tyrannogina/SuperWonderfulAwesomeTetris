@@ -72,14 +72,14 @@ Game.prototype._refreshBoard = function () {
       if (this.board[rowIndex][colIndex] !== false) {
         var selector = '[data-row=' + rowIndex + ']' +
                        '[data-col=' + colIndex + ']';
-        $(selector).addClass(tetrominoCssClasses[this.board[rowIndex][colIndex]]);
+        $(selector).addClass('tetro' + this.board[rowIndex][colIndex]);
       }
     }.bind(this));
   }.bind(this));
 };
 
 Game.prototype._clearActualTetromino = function () {
-  $('.actual').removeClass('actual ' + tetrominoCssClasses[this.actualTetromino.name]);
+  $('.actual').removeClass('actual ' + 'tetro' + this.actualTetromino.name);
 };
 Game.prototype._drawTetromino = function () {
   var rowStart = this.actualTetromino.offset.y < 0 ? Math.abs(this.actualTetromino.offset.y) : 0;
@@ -90,7 +90,7 @@ Game.prototype._drawTetromino = function () {
       if (this.actualTetromino.body[tRow][tCol] !== false) {
         var selector = '[data-row=' + (this.actualTetromino.offset.y + tRow) + ']' +
                        '[data-col=' + (this.actualTetromino.offset.x + tCol) + ']';
-        $(selector).addClass('actual ' + tetrominoCssClasses[this.actualTetromino.name]);
+        $(selector).addClass('actual ' + 'tetro' + this.actualTetromino.name);
       }
     }
   }
