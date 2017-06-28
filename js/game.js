@@ -4,6 +4,9 @@ function Game(rows, columns) {
   this.board = this._generateBoard();
   this._assignControlsToKeys();
   this.intervalID = undefined;
+  this.isPaused = false;
+  this.score = 0;
+  this.level = 1;
 }
 
 Game.prototype._assignControlsToKeys = function() {
@@ -16,6 +19,7 @@ Game.prototype._assignControlsToKeys = function() {
         break;
       case 40: // arrow down
         this.actualTetromino.moveTetromino("down");
+        this._addToScore(1);
         break;
       case 37: // arrow left
         this.actualTetromino.moveTetromino("left");
@@ -29,13 +33,10 @@ Game.prototype._assignControlsToKeys = function() {
         }
         break;
       case 80: // p pause
-        /*if (this.intervalId) {
-          this.stop();
-        } else {
-          this.start();
-        }*/
+        this.togglePause();
         break;
     }
+    this._drawTetromino();
   }.bind(this));
 };
 
@@ -99,18 +100,27 @@ Game.prototype._drawTetromino = function () {
 Game.prototype.start = function () {
   this._generateRandomTetromino();
   this.intervalID = setInterval(function () {
-    this.actualTetromino.moveTetromino('down');
-    this._drawTetromino();
-    if (this.actualTetromino.fix) {
-      this._fixToBottom();
+    if (!this.isPaused) {
+      this.actualTetromino.moveTetromino('down');
+      this._drawTetromino();
+      if (this.actualTetromino.fix) {
+        this._fixToBottom();
+      }
+      if (this.actualTetromino.gameLost) {
+        this._gameOver();
+      }
+      this._deleteLines();
     }
-    if (this.actualTetromino.gameLost) {
-      this._gameOver();
-    }
-    this._deleteLines();
-  }.bind(this), 1000);
+  }.bind(this), 500);
 };
 
+Game.prototype.togglePause = function () {
+  if (this.isPaused) {
+    this.isPaused = false;
+  } else {
+    this.isPaused = true;
+  }
+};
 
 Game.prototype._generateRandomTetromino = function () {
   var tetrominoConstructor = availableTetrominos[Math.floor(Math.random() * availableTetrominos.length)];
@@ -135,12 +145,17 @@ Game.prototype._thereAreFullLines = function () {
 Game.prototype._deleteLines = function () {
   var linesToDelete = this._thereAreFullLines();
   if (linesToDelete !== false) {
+    if (linesToDelete.length > 5) {
+      //Add 100 bonus points for every 5 lines
+      this._addToScore(Math.floor(linesToDelete.length / 5)*100);
+    }
     linesToDelete.forEach(function (lineIndex) {
       this.board.splice(lineIndex, 1);
       this.board.unshift([]);
       for (var j = 0; j < this.columns; j++) {
         this.board[0].push(false);
       }
+      this._addToScore(100);
     }.bind(this));
     this._refreshBoard();
   }
@@ -165,5 +180,28 @@ Game.prototype._fixToBottom = function () {
     }
   }
   $('.actual').removeClass('actual');
+  this._addToScore(5);
   this._generateRandomTetromino();
+};
+
+Game.prototype._addToScore = function (valueToAdd) {
+  this.score += valueToAdd;
+  var tempLevel = Math.floor(this.score / 5000);
+  if (tempLevel > this.level) {
+    this._levelUp(tempLevel);
+  }
+  this._updateScoreboard();
+};
+
+Game.prototype._updateScoreboard = function () {
+  $('#scoreboard').text(this.score);
+};
+
+Game.prototype._levelUp = function (newLevel) {
+  this.level = newLevel;
+  this._refreshLevel();
+};
+
+Game.prototype._refreshLevel = function () {
+  $('#level').text(this.level);
 };

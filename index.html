@@ -11,7 +11,13 @@
       <div class="game-area">
         <div class="panel panel-left">
           <h1>Super<br>Wonderful<br>Awesome<br>Tetris</h1>
-          <button type="button" name="button" id="play-button" class="button">Play!</button>
+          <div class="stats">
+            <h3>Score</h3>
+            <div id="scoreboard" class="well">0</div>
+            <h3>Level</h3>
+            <div id="level" class="well">1</div>
+          </div>
+          <button type="button" name="play-button" id="play-button" class="button">Play!</button>
         </div>
         <div class="panel panel-center">
           <div id="game-board">
@@ -27,6 +33,7 @@
               <li>Use C to rotate the block left.</li>
             </ul>
           </div>
+          <button type="button" name="pause-button" id="pause-button" class="button">Pause</button>
         </div>
       </div>
 
