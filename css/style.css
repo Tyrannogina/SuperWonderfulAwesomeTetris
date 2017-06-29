@@ -157,6 +157,9 @@ h5 {
 .instructions ul {
   padding: 1rem;
 }
+.instructions li {
+  margin-bottom: 1rem;
+}
 
 .author {
   position:fixed;
