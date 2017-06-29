@@ -2,11 +2,12 @@ function Game(rows, columns) {
   this.rows = rows;
   this.columns = columns;
   this.board = this._generateBoard();
-  this._assignControlsToKeys();
   this.intervalID = undefined;
   this.isPaused = false;
   this.score = 0;
   this.level = 1;
+  this.actualTetromino = undefined;
+  this.followingTetrominos = [];
 }
 
 Game.prototype._assignControlsToKeys = function() {
@@ -97,8 +98,25 @@ Game.prototype._drawTetromino = function () {
   }
 };
 
+Game.prototype._drawNextTetrominos = function () {
+  this.followingTetrominos.forEach(function (tetromino, index) {
+    var length = tetromino.body.length;
+    $('[next=' + (index + 1) + ']').empty().css({ "width": (length * 2.5) + "rem", "height": (length * 2.5) + "rem"});
+    for (var row = 0; row < length; row++) {
+      for (var col = 0; col < length; col++) {
+        if (tetromino.body[row][col] !== false) {
+          $('[next=' + (index + 1) + ']').append($('<div>').addClass('cell-next tetro' + tetromino.name));
+        } else {
+          $('[next=' + (index + 1) + ']').append($('<div>').addClass('cell-next'));
+        }
+      }
+    }
+  });
+};
+
 Game.prototype.start = function () {
-  this._generateRandomTetromino();
+  this._assignControlsToKeys();
+  this._generateRandomTetrominos();
   this.intervalID = setInterval(function () {
     if (!this.isPaused) {
       this.actualTetromino.moveTetromino('down');
@@ -123,9 +141,29 @@ Game.prototype.togglePause = function () {
 };
 
 Game.prototype._generateRandomTetromino = function () {
-  var tetrominoConstructor = availableTetrominos[Math.floor(Math.random() * availableTetrominos.length)];
-  this.actualTetromino = new tetrominoConstructor();
+  return availableTetrominos[Math.floor(Math.random() * availableTetrominos.length)];
+};
+
+Game.prototype._generateRandomTetrominos = function () {
+  for (var i = 0; i < 4; i++) {
+    var tetrominoConstructor = this._generateRandomTetromino();
+    if (i === 3) {
+      this.actualTetromino = new tetrominoConstructor();
+      this.actualTetromino.board = this.board;
+    } else {
+      this.followingTetrominos[i] = new tetrominoConstructor();
+    }
+  }
+  this._drawNextTetrominos();
+};
+
+Game.prototype._updateTetromino = function () {
+  this.actualTetromino = this.followingTetrominos[0];
   this.actualTetromino.board = this.board;
+  this.followingTetrominos[0] = this.followingTetrominos[1];
+  this.followingTetrominos[1] = this.followingTetrominos[2];
+  this.followingTetrominos[2] = new (this._generateRandomTetromino())();
+  this._drawNextTetrominos();
 };
 
 Game.prototype._thereAreFullLines = function () {
@@ -162,10 +200,27 @@ Game.prototype._deleteLines = function () {
 };
 
 Game.prototype._gameOver = function () {
-    clearInterval(this.intervalID);
-    alert("GAME OVER");
+  clearInterval(this.intervalID);
+  alert("GAME OVER");
+  return false;
 };
 
+Game.prototype.reset = function (rows, columns) {
+  clearInterval(this.intervalID);
+  this.rows = rows;
+  this.columns = columns;
+  this.board = this._generateBoard();
+  this.intervalID = undefined;
+  this.isPaused = false;
+  this.score = 0;
+  this.level = 1;
+  this.actualTetromino = undefined;
+  this.followingTetrominos = [];
+
+  this.start();
+  $('.actual').removeClass('actual');
+
+};
 Game.prototype._fixToBottom = function () {
   var rowStart = this.actualTetromino.offset.y < 0 ? Math.abs(this.actualTetromino.offset.y) : 0;
   var length = this.actualTetromino.body.length;
@@ -181,7 +236,7 @@ Game.prototype._fixToBottom = function () {
   }
   $('.actual').removeClass('actual');
   this._addToScore(5);
-  this._generateRandomTetromino();
+  this._updateTetromino();
 };
 
 Game.prototype._addToScore = function (valueToAdd) {

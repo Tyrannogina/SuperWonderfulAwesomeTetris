@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <title>Tetris</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300|Allerta+Stencil|Black+Ops+One|Bowlby+One+SC|Press+Start+2P|Rubik+Mono+One" rel="stylesheet">
   </head>
   <body>
     <div class="main-container">
       <div class="game-area">
         <div class="panel panel-left">
           <h1>Super<br>Wonderful<br>Awesome<br>Tetris</h1>
-          <div class="stats">
+          <div class="stats metal-box">
             <h3>Score</h3>
             <div id="scoreboard" class="well">0</div>
             <h3>Level</h3>
@@ -25,7 +25,16 @@
           </div>
         </div>
         <div class="panel panel-right">
-          <div class="instructions">
+          <div class="next-tetrominos metal-box">
+            <h3>Next:</h3>
+            <div next="1" class="well">
+            </div>
+            <div next="2" class="well">
+            </div>
+            <div next="3" class="well">
+            </div>
+          </div>
+          <div class="instructions metal-box">
             <h3>Instructions:</h3>
             <ul>
               <li>Use left and right arrows to move sideways.</li>
@@ -34,6 +43,7 @@
             </ul>
           </div>
           <button type="button" name="pause-button" id="pause-button" class="button">Pause</button>
+          <button type="button" name="reset-button" id="reset-button" class="button">Reset</button>
         </div>
       </div>
 

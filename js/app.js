@@ -1,7 +1,9 @@
 var game;
 
 $(document).ready(function() {
-  game = new Game(20, 10);
+  var rows = 20;
+  var cols = 10;
+  game = new Game(rows, cols);
   game.drawBoard();
   $('#play-button').on('click', function() {
     game.start();
@@ -10,5 +12,9 @@ $(document).ready(function() {
   $('#pause-button').on('click', function(e) {
     e.preventDefault();
     game.togglePause();
+  });
+  $('#reset-button').on('click', function(e) {
+    game.reset(rows, cols);
+    game.start();
   });
 });
