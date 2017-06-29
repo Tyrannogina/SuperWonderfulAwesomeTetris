@@ -17,7 +17,8 @@
             <h3>Level</h3>
             <div id="level" class="well">1</div>
           </div>
-          <button type="button" name="play-button" id="play-button" class="button">Play!</button>
+          <button type="button" name="play-button" id="play-button" class="button metal-box">Play!</button>
+          <button type="button" name="reset-button" id="reset-button" disabled="true" class="button metal-box">Reset</button>
         </div>
         <div class="panel panel-center">
           <div id="game-board">
@@ -27,23 +28,22 @@
         <div class="panel panel-right">
           <div class="next-tetrominos metal-box">
             <h3>Next:</h3>
-            <div next="1" class="well">
+            <div next="1" class="next well upcoming">
             </div>
-            <div next="2" class="well">
+            <div next="2" class="next well">
             </div>
-            <div next="3" class="well">
+            <div next="3" class="next well">
             </div>
           </div>
           <div class="instructions metal-box">
             <h3>Instructions:</h3>
             <ul>
-              <li>Use left and right arrows to move sideways.</li>
-              <li>Use arrow up to rotate the block clockwise, C to rotate counterclockwise.</li>
-              <li>Use arrow down to move down.</li>
+              <li class="well">Use left and right arrows to move sideways.</li>
+              <li class="well">Use arrow up to rotate the block clockwise, C to rotate counterclockwise.</li>
+              <li class="well">Use arrow down to move down.</li>
             </ul>
           </div>
-          <button type="button" name="pause-button" id="pause-button" class="button">Pause</button>
-          <button type="button" name="reset-button" id="reset-button" disabled="true" class="button">Reset</button>
+          <button type="button" name="pause-button" id="pause-button" class="button metal-box">Pause</button>
         </div>
       </div>
 
