@@ -18,6 +18,5 @@ $(document).ready(function() {
   $('#reset-button').on('click', function(e) {
     e.preventDefault();
     game.reset(rows, cols);
-    game.start();
   });
 });

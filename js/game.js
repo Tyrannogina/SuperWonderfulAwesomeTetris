@@ -8,10 +8,16 @@ function Game(rows, columns) {
   this.level = 1;
   this.actualTetromino = undefined;
   this.followingTetrominos = [];
+  this.speed = 500;
 }
 
 Game.prototype.start = function () {
   this._generateTetrominos();
+  this._resetMovementInterval();
+};
+
+Game.prototype._resetMovementInterval = function () {
+  clearInterval(this.intervalID);
   this.intervalID = setInterval(function () {
     if (!this.isPaused) {
       this.actualTetromino.moveTetromino('down');
@@ -24,7 +30,7 @@ Game.prototype.start = function () {
       }
       this._deleteLines();
     }
-  }.bind(this), 500);
+  }.bind(this), this.speed);
 };
 
 Game.prototype.togglePause = function () {
@@ -106,22 +112,22 @@ Game.prototype._gameOver = function () {
 };
 
 Game.prototype.reset = function (rows, columns) {
-  if (this.intervalID) {
-    clearInterval(this.intervalID);
-    this.intervalID = 0;
-  }
-
   this.rows = rows;
   this.columns = columns;
   this.board = this._generateBoard();
 
   this.isPaused = false;
   this.score = 0;
+  this._refreshScoreboard();
   this.level = 1;
+  this._refreshLevel();
+  this.speed = 500;
   this.actualTetromino = undefined;
   this.followingTetrominos = [];
-  this._removeKeyAssignments();
-//  $('.actual').removeClass('actual');
+  $('.actual').removeClass('actual');
+
+  this.start();
+
   this._refreshBoard();
   return false;
 };
@@ -155,6 +161,7 @@ Game.prototype._removeKeyAssignments = function () {
     }
     this._drawTetromino();
   }.bind(this));
+  return false;
 };
 Game.prototype._fixToBottom = function () {
   var rowStart = this.actualTetromino.offset.y < 0 ? Math.abs(this.actualTetromino.offset.y) : 0;
@@ -185,11 +192,15 @@ Game.prototype._addToScore = function (valueToAdd) {
 
 Game.prototype._levelUp = function (newLevel) {
   this.level = newLevel;
+  var newSpeed = (500 - 20 * this.level);
+  this.speed = newSpeed > 20 ? newSpeed : 20;
+  this._resetMovementInterval();
   this._refreshLevel();
 };
 
-
+/******************************************************************/
 /*********************** INTERFACE ********************************/
+/******************************************************************/
 
 Game.prototype.assignControlsToKeys = function() {
   $('body').on('keydown', function(e) {
