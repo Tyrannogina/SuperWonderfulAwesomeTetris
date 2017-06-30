@@ -211,23 +211,20 @@ h5 {
   margin-right: 0;
 }
 
-.author {
-  position:fixed;
-  right: 0;
+.credit {
+  position: fixed;
   bottom: 0;
-  display: inline-block;
   margin: 1rem; /* adjust as needed */
 }
-.author img {
-  display: block;
+.credit img {
   width: 4rem;
-  height: 4rem;
-  vertical-align: top;
   margin: auto;
 }
-.author figcaption {
-  text-align: center;
-  color: white;
+.credit-me {
+  right:0;
+}
+.credit-fran {
+  right: 5rem;
 }
 
 .metal-box {
@@ -340,34 +337,34 @@ span {
 }
 
 
-#game-board div[class^="tetro"] .side {
+#game-board div[class*=" tetro"] .side {
   position: absolute;
 }
-#game-board div[class^="tetro"] .side:first-child, .side:last-child {
+#game-board div[class*=" tetro"] .side:first-child, .side:last-child {
   height: 0;
   width: 100%;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
 }
-#game-board div[class^="tetro"] .side:nth-child(2), .side:nth-child(3) {
+#game-board div[class*=" tetro"]  .side:nth-child(2), .side:nth-child(3) {
   height: 100%;
   width: 0;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
 }
-#game-board div[class^="tetro"] .side:first-child {
+#game-board div[class*=" tetro"] .side:first-child {
   top: 0;
   border-top: 5px solid rgba(255, 255, 255, 0.5);
 }
-#game-board div[class^="tetro"] .side:last-child {
+#game-board div[class*=" tetro"] .side:last-child {
   bottom: 0;
   border-bottom: 5px solid rgba(0, 0, 0, 0.45);
 }
-#game-board div[class^="tetro"] .side:nth-child(2) {
+#game-board div[class*=" tetro"] .side:nth-child(2) {
   left: 0;
   border-left: 5px solid rgba(255, 255, 255, 0.2);
 }
-#game-board div[class^="tetro"] .side:nth-child(3) {
+#game-board div[class*=" tetro"] .side:nth-child(3) {
   right: 0;
   border-right: 5px solid rgba(0, 0, 0, 0.2);
 }
