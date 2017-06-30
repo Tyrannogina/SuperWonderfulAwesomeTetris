@@ -10,7 +10,8 @@
     <main class="main-container">
       <div class="game-area">
         <section class="panel panel-left">
-          <h1>Super<br>Wonderful<br>Awesome<br>Tetris</h1>
+          <img class="title-image" src="img/logo.png" alt="Super Wonderful Awesome Tetris">
+          <h1 style="display:none">Super<br>Wonderful<br>Awesome<br>Tetris</h1>
           <div class="stats metal-box">
             <h3>Score</h3>
             <div id="scoreboard" class="well">0</div>
@@ -18,8 +19,8 @@
             <div id="level" class="well">1</div>
           </div>
           <div class="button-group">
-            <button type="button" name="play-button" id="play-button" class="button metal-box">Play!</button>
-            <button type="button" name="reset-button" id="reset-button" disabled="true" class="button metal-box">Reset</button>
+            <button type="button" name="play-button" id="play-button" class="button metal-box"><span>Play!</span></button>
+            <button type="button" name="reset-button" id="reset-button" disabled="true" class="button metal-box"><span>Reset</span></button>
           </div>
         </section>
         <section class="panel panel-center">
@@ -45,13 +46,12 @@
               <li class="well">Use arrow down to move down.</li>
             </ul>
           </div>
-          <button type="button" name="pause-button" id="pause-button" class="button metal-box">Pause</button>
+          <button type="button" name="pause-button" id="pause-button" class="button metal-box"><span>Pause</span></button>
         </section>
       </div>
 
       <figure class="author">
-        <img src="img/tyrannogina-pixel.png" alt="Tyrannogina logo" />
-        <figcaption>by Tyrannogina</figcaption>
+        <a href="#"></a><img src="img/tyrannogina-pixel.png" alt="Tyrannogina logo" />
       </figure>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

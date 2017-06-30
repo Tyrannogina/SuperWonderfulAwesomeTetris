@@ -245,9 +245,6 @@ Game.prototype._generateBoard = function () {
 };
 
 Game.prototype.drawBoard = function () {
-  //$('.game-area').css({"min-width": (this.columns * 8) + 'rem'});
-  //$('.panel').css({"min-width": (this.columns * 2.5) + 'rem'});
-  //$('.panel-center').css({"min-width": (this.columns * 3) + 'rem'});
   $('#game-board').css({ "width": (this.columns * 2.5) + "rem", "height": (this.rows * 2.5) + "rem"});
   this.board.forEach(function (row, rowIndex) {
     row.forEach(function (col, colIndex) {
@@ -256,6 +253,9 @@ Game.prototype.drawBoard = function () {
       );
     });
   });
+  for (var i = 0; i < 4; i++) {
+    $('.cell').append('<div>').addClass('side');
+  }
 };
 
 Game.prototype._refreshBoard = function () {
