@@ -309,8 +309,11 @@ Game.prototype._drawNextTetrominos = function () {
           $('[next=' + (index + 1) + ']').append($('<div>').addClass('cell-next'));
         }
       }
-    }
+    }  
   });
+  for (var i = 0; i < 4; i++) {
+    $('.cell-next').append($('<div>').addClass('side'));
+  }
 };
 
 Game.prototype._refreshLevel = function () {

@@ -191,12 +191,6 @@ h5 {
   margin-left: 0;
 }
 
-#play-button {
-  /*position: absolute;
-  left: 40%;
-  transform: translateX(-50%);*/
-}
-
 #reset-button {
   margin-right: 0;
 }
@@ -232,7 +226,6 @@ h5 {
   margin: 1rem;
   padding: 1rem;
 }
-
 
 .panel-center,
 .metal-box {
@@ -278,9 +271,9 @@ span {
   border-radius: 0.3rem;
   min-height: 2rem;
   margin: 0 2rem 1rem 2rem;
-  background-color: rgba(0,0,0,.03);
-  border: 1px solid #c0c0c0;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  background-color: rgba(0,0,0,.04);
+  border: 1px solid rgba(26, 0, 26, 1);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.3);
   box-sizing: content-box;
 }
 
@@ -365,6 +358,41 @@ span {
   border-left: 5px solid rgba(255, 255, 255, 0.2);
 }
 #game-board div[class*=" tetro"] .side:nth-child(3) {
+  right: 0;
+  border-right: 5px solid rgba(0, 0, 0, 0.2);
+}
+
+/* NEXT AHORA */
+
+
+.next-tetrominos .next div[class*=" tetro"] .side {
+  position: absolute;
+}
+.next-tetrominos .next div[class*=" tetro"] .side:first-child, .side:last-child {
+  height: 0;
+  width: 100%;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+.next-tetrominos .next div[class*=" tetro"]  .side:nth-child(2), .side:nth-child(3) {
+  height: 100%;
+  width: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+.next-tetrominos .next div[class*=" tetro"] .side:first-child {
+  top: 0;
+  border-top: 5px solid rgba(255, 255, 255, 0.5);
+}
+.next-tetrominos .next div[class*=" tetro"] .side:last-child {
+  bottom: 0;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.45);
+}
+.next-tetrominos .next div[class*=" tetro"] .side:nth-child(2) {
+  left: 0;
+  border-left: 5px solid rgba(255, 255, 255, 0.2);
+}
+.next-tetrominos .next div[class*=" tetro"] .side:nth-child(3) {
   right: 0;
   border-right: 5px solid rgba(0, 0, 0, 0.2);
 }
