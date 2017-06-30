@@ -254,7 +254,7 @@ Game.prototype.drawBoard = function () {
     });
   });
   for (var i = 0; i < 4; i++) {
-    $('.cell').append('<div>').addClass('side');
+    $('.cell').append($('<div>').addClass('side'));
   }
 };
 
