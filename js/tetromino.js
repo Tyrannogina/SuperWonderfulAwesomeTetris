@@ -8,6 +8,9 @@ var availableTetrominos = [
       ['I', 'I', 'I', 'I'],
       [false, false, false, false]
     ];
+    this.displayBody = [
+      ['I', 'I', 'I', 'I']
+    ];
   },
   function () {
     Tetromino.call(this);
@@ -20,6 +23,10 @@ var availableTetrominos = [
       ['B', 'B'],
       ['B', 'B']
     ];
+    this.displayBody = [
+      ['B', 'B'],
+      ['B', 'B']
+    ];
   },
   function () {
     Tetromino.call(this);
@@ -28,6 +35,10 @@ var availableTetrominos = [
       [false, 'S', 'S'],
       ['S', 'S', false],
       [false, false, false]
+    ];
+    this.displayBody = [
+      [false, 'S', 'S'],
+      ['S', 'S', false]
     ];
   },
   function () {
@@ -38,6 +49,10 @@ var availableTetrominos = [
       [false, 'Z', 'Z'],
       [false, false, false]
     ];
+    this.displayBody = [
+      ['Z', 'Z', false],
+      [false, 'Z', 'Z']
+    ];
   },
   function () {
     Tetromino.call(this);
@@ -46,6 +61,10 @@ var availableTetrominos = [
       [false, false, 'L'],
       ['L', 'L', 'L'],
       [false, false, false]
+    ];
+    this.displayBody = [
+      [false, false, 'L'],
+      ['L', 'L', 'L']
     ];
   },
   function () {
@@ -56,6 +75,10 @@ var availableTetrominos = [
       ['J', 'J', 'J'],
       [false, false, false]
     ];
+    this.displayBody = [
+      ['J', false, false],
+      ['J', 'J', 'J']
+    ];
   },
   function () {
     Tetromino.call(this);
@@ -64,6 +87,10 @@ var availableTetrominos = [
       [false, 'T', false],
       ['T', 'T', 'T'],
       [false, false, false]
+    ];
+    this.displayBody = [
+      [false, 'T', false],
+      ['T', 'T', 'T']
     ];
   }
 ];

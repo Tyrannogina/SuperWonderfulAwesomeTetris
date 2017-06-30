@@ -245,9 +245,9 @@ Game.prototype._generateBoard = function () {
 };
 
 Game.prototype.drawBoard = function () {
-  $('.game-area').css({"min-width": (this.columns * 8) + 'rem'});
-  $('.panel').css({"min-width": (this.columns * 2.5) + 'rem'});
-  $('.panel-center').css({"min-width": (this.columns * 3) + 'rem'});
+  //$('.game-area').css({"min-width": (this.columns * 8) + 'rem'});
+  //$('.panel').css({"min-width": (this.columns * 2.5) + 'rem'});
+  //$('.panel-center').css({"min-width": (this.columns * 3) + 'rem'});
   $('#game-board').css({ "width": (this.columns * 2.5) + "rem", "height": (this.rows * 2.5) + "rem"});
   this.board.forEach(function (row, rowIndex) {
     row.forEach(function (col, colIndex) {
@@ -294,11 +294,16 @@ Game.prototype._drawTetromino = function () {
 
 Game.prototype._drawNextTetrominos = function () {
   this.followingTetrominos.forEach(function (tetromino, index) {
-    var length = tetromino.body.length;
-    $('[next=' + (index + 1) + ']').empty().css({ "width": (length * 2.5) + "rem", "height": (length * 2.5) + "rem"});
-    for (var row = 0; row < length; row++) {
-      for (var col = 0; col < length; col++) {
-        if (tetromino.body[row][col] !== false) {
+    var height = tetromino.displayBody.length;
+    var width = tetromino.displayBody[0].length;
+    $('[next=' + (index + 1) + ']').empty().css({ "width": (width * 2.5) + "rem", "height": (height * 2.5) + "rem"});
+    if (index + 1  === 1) {
+      $('[next=' + (index + 1) + ']').attr('class', 'next well upcoming');
+      $('[next=' + (index + 1) + ']').addClass('tetro' + tetromino.name + 'border');
+    }
+    for (var row = 0; row < height; row++) {
+      for (var col = 0; col < width; col++) {
+        if (tetromino.displayBody[row][col] !== false) {
           $('[next=' + (index + 1) + ']').append($('<div>').addClass('cell-next tetro' + tetromino.name));
         } else {
           $('[next=' + (index + 1) + ']').append($('<div>').addClass('cell-next'));

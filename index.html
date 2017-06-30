@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300|Allerta+Stencil|Black+Ops+One|Bowlby+One+SC|Press+Start+2P|Rubik+Mono+One" rel="stylesheet">
   </head>
   <body>
-    <div class="main-container">
+    <main class="main-container">
       <div class="game-area">
-        <div class="panel panel-left">
+        <section class="panel panel-left">
           <h1>Super<br>Wonderful<br>Awesome<br>Tetris</h1>
           <div class="stats metal-box">
             <h3>Score</h3>
@@ -17,17 +17,19 @@
             <h3>Level</h3>
             <div id="level" class="well">1</div>
           </div>
-          <button type="button" name="play-button" id="play-button" class="button metal-box">Play!</button>
-          <button type="button" name="reset-button" id="reset-button" disabled="true" class="button metal-box">Reset</button>
-        </div>
-        <div class="panel panel-center">
+          <div class="button-group">
+            <button type="button" name="play-button" id="play-button" class="button metal-box">Play!</button>
+            <button type="button" name="reset-button" id="reset-button" disabled="true" class="button metal-box">Reset</button>
+          </div>
+        </section>
+        <section class="panel panel-center">
           <div id="game-board">
             <!-- here goes the game -->
           </div>
-        </div>
-        <div class="panel panel-right">
+        </section>
+        <section class="panel panel-right">
           <div class="next-tetrominos metal-box">
-            <h3>Next:</h3>
+            <h3>Next</h3>
             <div next="1" class="next well upcoming">
             </div>
             <div next="2" class="next well">
@@ -36,7 +38,7 @@
             </div>
           </div>
           <div class="instructions metal-box">
-            <h3>Instructions:</h3>
+            <h3>Instructions</h3>
             <ul>
               <li class="well">Use left and right arrows to move sideways.</li>
               <li class="well">Use arrow up to rotate the block clockwise, C to rotate counterclockwise.</li>
@@ -44,15 +46,14 @@
             </ul>
           </div>
           <button type="button" name="pause-button" id="pause-button" class="button metal-box">Pause</button>
-        </div>
+        </section>
       </div>
 
       <figure class="author">
         <img src="img/tyrannogina-pixel.png" alt="Tyrannogina logo" />
         <figcaption>by Tyrannogina</figcaption>
       </figure>
-
-    </div>
+    </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/tetromino.js"></script>
     <script type="text/javascript" src="js/game.js"></script>
