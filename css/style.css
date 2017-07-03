@@ -216,15 +216,17 @@ h5 {
   bottom: 0;
   margin: 1rem; /* adjust as needed */
 }
-.credit img {
+.credit-me img {
   width: 4rem;
-  margin: auto;
 }
 .credit-me {
   right:0;
 }
 .credit-fran {
-  right: 5rem;
+  right: 6rem;
+}
+.credit-fran img {
+  width: 5rem;
 }
 
 .metal-box {
