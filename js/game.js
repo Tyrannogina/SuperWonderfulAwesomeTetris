@@ -92,7 +92,7 @@ Game.prototype._deleteLines = function () {
     //Add 100 points per line + bonus of number of lines (20 per 2 lines, 30 per 3...)
     //Add 160 bonus points for every 4 lines so it is 600 points
     var lineCount = linesToDelete.length;
-    var gotScore = (1 + (lineCount / 10)) * 100 + ( lineCount === 4? 160 : 0);
+    var gotScore = ((lineCount + (lineCount / 10)) * 100) + ( lineCount === 4? 160 : 0);
     this._addToScore(gotScore);
     linesToDelete.forEach(function (lineIndex) {
       this.board.splice(lineIndex, 1);
@@ -163,6 +163,7 @@ Game.prototype._removeKeyAssignments = function () {
   }.bind(this));
   return false;
 };
+
 Game.prototype._fixToBottom = function () {
   var rowStart = this.actualTetromino.offset.y < 0 ? Math.abs(this.actualTetromino.offset.y) : 0;
   var length = this.actualTetromino.body.length;
@@ -185,14 +186,14 @@ Game.prototype._addToScore = function (valueToAdd) {
   this.score += valueToAdd;
   var tempLevel = Math.floor(this.score / 5000);
   if (tempLevel + 1 > this.level) {
-    this._levelUp(tempLevel);
+    this._levelUp(tempLevel + 1);
   }
   this._refreshScoreboard();
 };
 
 Game.prototype._levelUp = function (newLevel) {
   this.level = newLevel;
-  var newSpeed = (500 - 20 * this.level);
+  var newSpeed = (500 - 40 * this.level);
   this.speed = newSpeed > 20 ? newSpeed : 20;
   this._resetMovementInterval();
   this._refreshLevel();

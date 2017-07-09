@@ -19,10 +19,12 @@ For playing, you just have to go to https://tyrannogina.github.io/SuperWonderful
   - Score
   - Give the game a theme and make it visually appealing.
 
-### Known bugs:
+### Reported bugs
   - If you move one tetromino to the right or left before it appears on the screen and it goes out of limits and a game over is triggered when the automatic moveDown function is executed.
-  - The displayed level is always one level short of what it should be (level 1 stays for two levels).
-  - The points for erasing full lines are not adding properly. It sums 130 instead of 330 for 3 lines.
+
+### Fixes (9th of July 2017)
+  - The displayed level was always one level short of what it should be. Fixed.
+  - The points for erasing full lines were not being properly added to the score. Now it sums correctly, 100 points per line plus a modifyer depending on number of lines erased and a special bonus for 4 lines.
 
 ### Future features:
 Features I would like to implement:
@@ -34,7 +36,7 @@ Features I would like to implement:
   - Implement security checks to avoid player updating level through browser console.
 
 ### Code refactoring:
-  - SASS and maybe Skeleton so it is easier to do the layout responsive.
+  - SASS and maybe Skeleton so it is easier to make a responsive layout.
   - Reduce image sizes to improve load time.
   - Change background image of .metal-box class to add the pink hue instead of doing that through javascript.
   - Maybe try functional programming, if I can wrap my head around it.
