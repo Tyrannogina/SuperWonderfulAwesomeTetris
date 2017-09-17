@@ -21,6 +21,9 @@ For playing, you just have to go to https://tyrannogina.github.io/SuperWonderful
 
 ### Reported bugs
   - If you move one tetromino to the right or left before it appears on the screen and it goes out of limits and a game over is triggered when the automatic moveDown function is executed.
+  - Find a way to disable browser arrow response so it does not get crazy on small displays.
+  - Arrows should be disabled after pause!!
+  - Disable down arrow once the tetromino is touching the bottom, so you don't get extra points holding down.
 
 ### Fixes (9th of July 2017)
   - The displayed level was always one level short of what it should be. Fixed.
